@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="<%= config 'description'; %>">
+	<meta name="author" content="<%= config 'author'; %>">
+	<!-- css -->
+	%= include 'css';
+</head>
+<body>
+	<!-- navbar -->
+	%= include 'navbar';
+	<!-- error message -->
+	% if(flash 'error') {
+	<p><%= flash 'error'; %></p>
+	% };
+	<!-- success message -->
+	% if(flash 'success') {
+	<p><%= flash 'success'; %></p>
+	% };
+	<!-- content -->
+	<article><%= content %></article>
+	<!-- javascript -->
+	%= include 'javascript';
+</body>
+</html>

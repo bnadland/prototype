@@ -1,0 +1,25 @@
+% layout 'default';
+% title 'Server Error';
+
+<pre><%= $exception->message %></pre>
+<pre>
+<table class='table'>
+% for my $line (@{$exception->lines_before}) {
+	<tr>
+		<td><%= $line->[0] %></td>
+		<td><%= $line->[1] %></td>
+	</tr>
+% };
+	<tr>
+		<td><%= $exception->line->[0] %></td>
+		<td><%= $exception->line->[1] %></td>
+		<td><%= $exception->line->[2] %></td>
+	</tr>
+% for my $line (@{$exception->lines_after}) {
+	<tr>
+		<td><%= $line->[0] %></td>
+		<td><%= $line->[1] %></td>
+	</tr>
+% };
+</table>
+</pre>

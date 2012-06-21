@@ -1,0 +1,6 @@
+<a href="#"><%= config 'project'; %></a>
+
+<nav>
+<li><%= link_to '/' => begin %>Home<% end %></li>				
+<li><%= link_to '/about' => begin %>About<% end %></li>
+</nav>
