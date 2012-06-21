@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+
+use 5.010;
+use strict;
+use warnings;
+
+use DBI;
+use File::Slurp;
+use Mojo::JSON;
+
+my $EDITOR = $ENV{'EDITOR'} || 'vim';
+my $DIR = 'migrations';
+my $CONFIG = 'app.json';
+
+sub get_config {
+	my $json = Mojo::JSON->new;
+	my $text = read_file($CONFIG);
+	return $json->decode($text);
+}
+
+sub create_migration {
+	my ($name) = @_;
+	my $filename = time() . '_' . $name;
+	mkdir($DIR, 0777);
+	system($EDITOR, $DIR.'/'.$filename);
+}
+
+sub apply_migrations {
+	my @migrations = glob($DIR.'/*');
+	if(!@migrations) {
+		say 'No migrations found.';
+		exit(1);
+	}
+
+	my $config = get_config();
+
+	my $dbh = DBI->connect(
+		'DBI:'.$config->{'db_name'}, $config->{'db_user'}, $config->{'db_pass'}
+	);
+
+	$dbh->do('CREATE TABLE IF NOT EXISTS migration (name VARCHAR(512));');
+	
+	my $done = $dbh->prepare('SELECT name FROM migration WHERE name=?;');
+	foreach my $migration (@migrations) {
+		say '* '.$migration;
+		$done->execute($migration);
+		if(@{$done->fetchall_arrayref}) {
+			say '=> already applied';
+		} else {
+			my $sql = read_file($migration);
+			chomp($sql);
+			say $sql;
+			$dbh->do($sql);
+			$dbh->do(
+				'INSERT INTO migration (name) VALUES (?);',
+				undef,
+				$migration
+			);
+			say '=> applied';
+		}
+	}
+
+	$dbh->disconnect();
+}
+
+sub main {
+	if(@ARGV) {
+		create_migration($ARGV[0]);
+	} else {
+		apply_migrations();
+	}
+}
+
+main();
