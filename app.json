@@ -1,0 +1,9 @@
+{
+	"project":     "",
+	"author":      "Benjamin Nadland",
+	"description": "",
+	"secret":      "",
+	"db_name":     "mysql:bootstrap",
+	"db_pass":     "",
+	"db_user":     "root"
+}

@@ -8,7 +8,7 @@ sub startup {
 	$self->plugin('PODRenderer');
 
 	# app.conf
-	$self->plugin('Config');
+	$self->plugin('JSONConfig');
 
 	# set secret
 	$self->secret($self->config->{'secret'});
