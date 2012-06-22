@@ -1,0 +1,52 @@
+body {
+background-color: black;
+}
+
+nav {
+padding: 1em;
+margin: 0.5em;
+background-color: black;
+color: grey;
+border-radius: 5px;
+border: 1px green solid;
+}
+
+nav a {
+color: green;
+margin: 0 0.5em;
+padding: 0.5em;
+font-variant: small-caps;
+text-decoration: none;
+border: 1px green solid;
+border-radius: 5px;
+}
+
+nav a:hover {
+color: black;
+background-color: green;
+}
+
+nav a:visited {
+}
+
+article {
+width: 36em;
+padding: 1em;
+margin: 0.5em;
+background-color: black;
+color: green;
+border-radius: 5px;
+}
+
+article a {
+color: purple;
+text-decoration: none;
+}
+
+article a:hover {
+
+}
+
+article a:visited {
+
+}
