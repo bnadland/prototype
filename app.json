@@ -3,7 +3,7 @@
 	"author":      "Benjamin Nadland",
 	"description": "",
 	"secret":      "",
-	"db_name":     "SQLite:dbname=db.sqlite",
+	"db_name":     "SQLite3:dbname=db.sqlite",
 	"db_pass":     "",
 	"db_user":     ""
 }
